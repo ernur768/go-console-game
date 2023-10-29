@@ -2,7 +2,7 @@ package term
 
 import (
 	"bufio"
-	"consoleTest/GamePhysics"
+	"consoleTest/gamePhysics"
 	"fmt"
 	"os"
 )
@@ -21,7 +21,7 @@ func Clear() {
 	_, _ = fmt.Fprint(screen, "\033[2J")
 }
 
-func MoveCursor(pos GamePhysics.Position) {
+func MoveCursor(pos gamePhysics.Position) {
 	_, _ = fmt.Fprintf(screen, "\033[%d;%dH", pos.Y, pos.X)
 }
 
@@ -29,7 +29,7 @@ func Draw(str string) {
 	_, _ = fmt.Fprint(screen, str)
 }
 
-func MoveCursorAndDraw(pos GamePhysics.Position, str string) {
+func MoveCursorAndDraw(pos gamePhysics.Position, str string) {
 	MoveCursor(pos)
 	Draw(str)
 }
