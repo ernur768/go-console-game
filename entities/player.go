@@ -45,6 +45,10 @@ func (p *Player) GetID() int {
 	return p.id
 }
 
+func (p *Player) GetPosition() gp.Position {
+	return p.position
+}
+
 // Entity interface implementations ===================================
 
 func (p *Player) Start() {

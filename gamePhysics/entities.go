@@ -9,6 +9,7 @@ type Entity interface {
 	Update()
 	SetID(ID int)
 	GetID() int
+	GetPosition() Position
 	Finalize()
 }
 
