@@ -26,6 +26,9 @@ func gameStart() {
 	player := entities.NewPlayer(gp.NewPosition(5, 5))
 	gp.AppendEntity(player)
 
+	health := entities.NewPlayerHealth()
+	gp.AppendEntity(health)
+
 	//player2 := entities.NewPlayer(gp.NewPosition(10, 10))
 	//gp.AppendEntity(player2)
 
