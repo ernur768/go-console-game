@@ -32,6 +32,9 @@ func gameStart() {
 	//player2 := entities.NewPlayer(gp.NewPosition(10, 10))
 	//gp.AppendEntity(player2)
 
+	a1 := entities.NewAsteroid(gp.NewPosition(60, 5), 50, health)
+	gp.AppendEntity(a1)
+
 	for _, object := range *Entities {
 		object.Start()
 	}
