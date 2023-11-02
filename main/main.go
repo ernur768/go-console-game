@@ -20,6 +20,9 @@ func gameStart() {
 
 	Entities := gp.GetEntities()
 
+	spacecraft := entities.NewSpacecraft()
+	gp.AppendEntity(spacecraft)
+
 	player := entities.NewPlayer(gp.NewPosition(5, 5))
 	gp.AppendEntity(player)
 
