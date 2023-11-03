@@ -1,16 +1,15 @@
-package guns
+package entities
 
 import (
-	"consoleTest/entities"
 	gp "consoleTest/gamePhysics"
 )
 
 type Gun struct {
-	owner       *entities.Player
+	owner       *Player
 	bulletSpeed int
 }
 
-func NewGun(owner *entities.Player, bulletSpeed int) *Gun {
+func NewGun(owner *Player, bulletSpeed int) *Gun {
 	return &Gun{
 		owner:       owner,
 		bulletSpeed: bulletSpeed,
@@ -18,6 +17,7 @@ func NewGun(owner *entities.Player, bulletSpeed int) *Gun {
 }
 
 func (g *Gun) Shoot() {
-	bullet := entities.NewBullet(g.owner.GetPosition(), g.bulletSpeed)
+	bullet := NewBullet(g.owner.GetPosition(), g.bulletSpeed)
+	bullet.Start()
 	gp.AppendEntity(bullet)
 }

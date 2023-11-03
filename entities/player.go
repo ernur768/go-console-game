@@ -2,7 +2,6 @@ package entities
 
 import (
 	gp "consoleTest/gamePhysics"
-	"consoleTest/guns"
 	"consoleTest/term"
 )
 
@@ -30,7 +29,7 @@ func NewPlayer(position gp.Position) *Player {
 		keyInput: term.GetKeyInput(),
 		position: position,
 	}
-	player.gun = guns.NewGun(player, 5) // 5 is the bullet speed
+	player.gun = NewGun(player, 5) // 5 is the bullet speed
 	return player
 }
 

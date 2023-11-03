@@ -61,7 +61,7 @@ func gameLoop() {
 		Entities = gp.GetCopy()
 
 		term.Render()
-		time.Sleep(25 * time.Millisecond)
+		time.Sleep(50 * time.Millisecond)
 	}
 }
 
