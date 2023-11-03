@@ -29,6 +29,14 @@ func GetEntities() *[]Entity {
 	return &entities
 }
 
+func GetCopy() []Entity {
+	mu.Lock()
+	defer mu.Unlock()
+	copyEntities := make([]Entity, len(entities))
+	copy(copyEntities, entities)
+	return copyEntities
+}
+
 func AppendEntity(entity Entity) {
 	mu.Lock()
 	defer mu.Unlock()
@@ -50,4 +58,5 @@ func DestroyEntity(entity Entity) {
 	entities[freeIndex] = entities[lastIndex]
 	entities[lastIndex] = nil
 	entities = entities[:lastIndex]
+
 }

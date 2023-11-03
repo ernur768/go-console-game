@@ -23,17 +23,23 @@ func gameStart() {
 	spacecraft := entities.NewSpacecraft()
 	gp.AppendEntity(spacecraft)
 
-	player := entities.NewPlayer(gp.NewPosition(5, 5))
-	gp.AppendEntity(player)
-
 	health := entities.NewPlayerHealth()
 	gp.AppendEntity(health)
 
-	//player2 := entities.NewPlayer(gp.NewPosition(10, 10))
-	//gp.AppendEntity(player2)
+	player := entities.NewPlayer(gp.NewPosition(5, 5))
+	gp.AppendEntity(player)
 
-	a1 := entities.NewAsteroid(gp.NewPosition(60, 5), 50, health)
+	a1 := entities.NewAsteroid(gp.NewPosition(60, 10), 50, health)
 	gp.AppendEntity(a1)
+
+	a2 := entities.NewAsteroid(gp.NewPosition(70, 20), 50, health)
+	gp.AppendEntity(a2)
+
+	a3 := entities.NewAsteroid(gp.NewPosition(75, 15), 50, health)
+	gp.AppendEntity(a3)
+
+	a4 := entities.NewAsteroid(gp.NewPosition(70, 17), 50, health)
+	gp.AppendEntity(a4)
 
 	for _, object := range *Entities {
 		object.Start()
@@ -43,13 +49,15 @@ func gameStart() {
 // Game loop =======================================
 
 func gameLoop() {
-	Entities := gp.GetEntities()
+	Entities := gp.GetCopy()
 
 	for {
 		term.Clear()
-		for _, entity := range *Entities {
+
+		for _, entity := range Entities {
 			entity.Update()
 		}
+		Entities = gp.GetCopy()
 
 		term.Render()
 	}
