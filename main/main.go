@@ -4,6 +4,7 @@ import (
 	"consoleTest/entities"
 	gp "consoleTest/gamePhysics"
 	"consoleTest/term"
+	"time"
 )
 
 func main() {
@@ -60,6 +61,7 @@ func gameLoop() {
 		Entities = gp.GetCopy()
 
 		term.Render()
+		time.Sleep(25 * time.Millisecond)
 	}
 }
 

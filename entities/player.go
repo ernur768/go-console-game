@@ -2,6 +2,7 @@ package entities
 
 import (
 	gp "consoleTest/gamePhysics"
+	"consoleTest/guns"
 	"consoleTest/term"
 )
 
@@ -9,31 +10,31 @@ const (
 	playerSprite = "👾"
 )
 
-// Player's gun interface
-
-type PlayerGun interface {
-	Shoot()
-}
-
 // Concrete player struct
 
 type Player struct {
 	id       int
 	keyInput term.KeyInput
 	position gp.Position
-	gun      PlayerGun
+	gun      GunBehavior
+}
+
+type GunBehavior interface {
+	Shoot()
 }
 
 // Constructor setter getter =======================================================
 
 func NewPlayer(position gp.Position) *Player {
-	return &Player{
+	player := &Player{
 		keyInput: term.GetKeyInput(),
 		position: position,
 	}
+	player.gun = guns.NewGun(player, 5) // 5 is the bullet speed
+	return player
 }
 
-func (p *Player) SetGun(g PlayerGun) {
+func (p *Player) SetGun(g GunBehavior) {
 	p.gun = g
 }
 
