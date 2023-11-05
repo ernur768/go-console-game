@@ -25,6 +25,7 @@ func gameStart() {
 	gp.AppendEntity(spacecraft)
 
 	health := entities.NewPlayerHealth()
+	health.RegisterObserver(spacecraft)
 	gp.AppendEntity(health)
 
 	player := entities.NewPlayer(gp.NewPosition(5, 5))
