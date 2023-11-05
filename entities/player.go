@@ -9,8 +9,6 @@ const (
 	playerSprite = "👾"
 )
 
-// Concrete player struct
-
 type Player struct {
 	id       int
 	keyInput term.KeyInput
@@ -18,18 +16,12 @@ type Player struct {
 	gun      GunBehavior
 }
 
-type GunBehavior interface {
-	Shoot()
-}
-
-// Constructor setter getter =======================================================
-
 func NewPlayer(position gp.Position) *Player {
 	player := &Player{
 		keyInput: term.GetKeyInput(),
 		position: position,
 	}
-	player.gun = NewGun(player, 5) // 5 is the bullet speed
+	player.gun = NewGun(player, 10, PistolType)
 	return player
 }
 
@@ -49,8 +41,6 @@ func (p *Player) GetPosition() gp.Position {
 	return p.position
 }
 
-// Entity interface implementations ===================================
-
 func (p *Player) Start() {
 	go p.movement()
 }
@@ -61,6 +51,18 @@ func (p *Player) Update() {
 
 func (p *Player) Finalize() {
 	p.keyInput.Close()
+}
+
+func (p *Player) changeToPistol() {
+	p.gun = NewGun(p, 10, PistolType)
+}
+
+func (p *Player) changeToRifle() {
+	p.gun = NewGun(p, 10, RifleType)
+}
+
+func (p *Player) changeToMiniGun() {
+	p.gun = NewGun(p, 10, MiniGunType)
 }
 
 func (p *Player) movement() {
@@ -78,6 +80,12 @@ func (p *Player) movement() {
 			p.gun.Shoot()
 		case 'i':
 			gp.DestroyEntity(p)
+		case '1':
+			p.changeToPistol()
+		case '2':
+			p.changeToRifle()
+		case '3':
+			p.changeToMiniGun()
 		}
 	}
 }

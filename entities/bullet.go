@@ -56,9 +56,22 @@ func (b *Bullet) Update() {
 		gp.DestroyEntity(b)
 		return
 	}
+	b.Collision()
 	term.MoveCursorAndDraw(b.position, b.sprite)
 }
 
 func (b *Bullet) Finalize() {
 	b.destroyed <- struct{}{}
+}
+
+func (b *Bullet) Collision() {
+
+	Asteroids := GetCopyAsteroids()
+	for _, a := range Asteroids {
+		if (a.position.X == b.position.X+1 || a.position.X == b.position.X || a.position.X == b.position.X-1) && a.position.Y == b.position.Y {
+			gp.DestroyEntity(b)
+			DestroyAsteroid(*a)
+			return
+		}
+	}
 }

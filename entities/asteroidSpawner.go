@@ -18,7 +18,7 @@ type AsteroidSpawner struct {
 func NewAsteroidSpawner(health *PlayerHealth) *AsteroidSpawner {
 	return &AsteroidSpawner{
 		position:      gp.NewPosition(0, 0),
-		pauseDuration: 6,
+		pauseDuration: 2,
 		asteroidSpeed: 50,
 		destroyed:     make(chan struct{}, 1),
 		playerHealth:  health,
