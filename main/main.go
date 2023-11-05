@@ -20,7 +20,7 @@ func gameStart() {
 	term.HideCursor()
 
 	Entities := gp.GetEntities()
-	Asteroids := entities.GetCopyAsteroids()
+	//Asteroids := entities.GetCopyAsteroids()
 
 	spacecraft := entities.NewSpacecraft()
 	gp.AppendEntity(spacecraft)
@@ -32,26 +32,29 @@ func gameStart() {
 	player := entities.NewPlayer(gp.NewPosition(5, 5))
 	gp.AppendEntity(player)
 
-	a1 := entities.NewAsteroid(gp.NewPosition(60, 10), 50, health)
-	entities.AppendAsteroid(a1)
+	spawner := entities.NewAsteroidSpawner(health)
+	gp.AppendEntity(spawner)
 
-	a2 := entities.NewAsteroid(gp.NewPosition(70, 20), 50, health)
-	entities.AppendAsteroid(a2)
-
-	a3 := entities.NewAsteroid(gp.NewPosition(75, 15), 50, health)
-	entities.AppendAsteroid(a3)
-
-	a4 := entities.NewAsteroid(gp.NewPosition(70, 17), 50, health)
-	entities.AppendAsteroid(a4)
+	//a1 := entities.NewAsteroid(gp.NewPosition(60, 10), 50, health)
+	//entities.AppendAsteroid(a1)
+	//
+	//a2 := entities.NewAsteroid(gp.NewPosition(70, 20), 50, health)
+	//entities.AppendAsteroid(a2)
+	//
+	//a3 := entities.NewAsteroid(gp.NewPosition(75, 15), 50, health)
+	//entities.AppendAsteroid(a3)
+	//
+	//a4 := entities.NewAsteroid(gp.NewPosition(70, 17), 50, health)
+	//entities.AppendAsteroid(a4)
 
 	for _, object := range *Entities {
 		object.Start()
 	}
 
-	Asteroids = entities.GetCopyAsteroids()
-	for _, asteroid := range Asteroids {
-		asteroid.Start()
-	}
+	//Asteroids = entities.GetCopyAsteroids()
+	//for _, asteroid := range Asteroids {
+	//	asteroid.Start()
+	//}
 
 }
 
