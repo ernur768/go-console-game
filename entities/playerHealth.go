@@ -6,11 +6,20 @@ import (
 	"strings"
 )
 
+// used interface ===========================================
+
+type Observer interface {
+	PlayerGotHit()
+}
+
+// PlayerHealth struct =======================================
+
 type PlayerHealth struct {
 	sprite       string
 	id           int
 	position     gp.Position
 	healthPoints int
+	observers    []Observer
 }
 
 func NewPlayerHealth() *PlayerHealth {
@@ -18,10 +27,11 @@ func NewPlayerHealth() *PlayerHealth {
 		sprite:       "♥ ",
 		position:     gp.NewPosition(75, 1),
 		healthPoints: 5,
+		observers:    make([]Observer, 0),
 	}
 }
 
-// getters and setters =====================
+// getters and setters =============================================
 
 func (ph *PlayerHealth) SetID(ID int) {
 	ph.id = ID
@@ -34,6 +44,8 @@ func (ph *PlayerHealth) GetID() int {
 func (ph *PlayerHealth) GetPosition() gp.Position {
 	return ph.position
 }
+
+// Entity methods ======================================================
 
 func (ph *PlayerHealth) Start() {
 	//TODO implement me
@@ -48,6 +60,21 @@ func (ph *PlayerHealth) Finalize() {
 	panic("implement me")
 }
 
+// playerHealth methods ======================================================
+
 func (ph *PlayerHealth) GetHit() {
 	ph.healthPoints--
+	ph.notifyObservers()
+}
+
+// Observer methods =========================================================
+
+func (ph *PlayerHealth) RegisterObserver(o Observer) {
+	ph.observers = append(ph.observers, o)
+}
+
+func (ph *PlayerHealth) notifyObservers() {
+	for _, observer := range ph.observers {
+		observer.PlayerGotHit()
+	}
 }
