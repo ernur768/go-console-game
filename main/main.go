@@ -20,6 +20,7 @@ func gameStart() {
 	term.HideCursor()
 
 	Entities := gp.GetEntities()
+	Asteroids := entities.GetCopyAsteroids()
 
 	spacecraft := entities.NewSpacecraft()
 	gp.AppendEntity(spacecraft)
@@ -32,26 +33,33 @@ func gameStart() {
 	gp.AppendEntity(player)
 
 	a1 := entities.NewAsteroid(gp.NewPosition(60, 10), 50, health)
-	gp.AppendEntity(a1)
+	entities.AppendAsteroid(a1)
 
 	a2 := entities.NewAsteroid(gp.NewPosition(70, 20), 50, health)
-	gp.AppendEntity(a2)
+	entities.AppendAsteroid(a2)
 
 	a3 := entities.NewAsteroid(gp.NewPosition(75, 15), 50, health)
-	gp.AppendEntity(a3)
+	entities.AppendAsteroid(a3)
 
 	a4 := entities.NewAsteroid(gp.NewPosition(70, 17), 50, health)
-	gp.AppendEntity(a4)
+	entities.AppendAsteroid(a4)
 
 	for _, object := range *Entities {
 		object.Start()
 	}
+
+	Asteroids = entities.GetCopyAsteroids()
+	for _, asteroid := range Asteroids {
+		asteroid.Start()
+	}
+
 }
 
 // Game loop =======================================
 
 func gameLoop() {
 	Entities := gp.GetCopy()
+	Asteroids := entities.GetCopyAsteroids()
 
 	for {
 		term.Clear()
@@ -59,7 +67,11 @@ func gameLoop() {
 		for _, entity := range Entities {
 			entity.Update()
 		}
+		for _, asteroid := range Asteroids {
+			asteroid.Update()
+		}
 		Entities = gp.GetCopy()
+		Asteroids = entities.GetCopyAsteroids()
 
 		term.Render()
 		time.Sleep(50 * time.Millisecond)

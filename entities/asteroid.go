@@ -42,17 +42,18 @@ func (a *Asteroid) GetPosition() gp.Position {
 // Entity methods =====================================
 
 func (a *Asteroid) Start() {
+	//fmt.Println("started")
 	go a.movement()
 }
 
 func (a *Asteroid) Update() {
 	if a.position.X == 1 {
-		gp.DestroyEntity(a)
+		DestroyAsteroid(*a)
 		return
 	}
 	if a.position.X <= 23 && a.position.Y >= 7 && a.position.Y <= 22 {
 		a.playerHealth.GetHit()
-		gp.DestroyEntity(a)
+		DestroyAsteroid(*a)
 		return
 	}
 	term.MoveCursorAndDraw(a.position, a.sprite)
