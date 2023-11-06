@@ -65,7 +65,7 @@ func (as *AsteroidSpawner) Finalize() {
 }
 
 func (as *AsteroidSpawner) spawnAsteroid() {
-	pos := gp.NewPosition(159, rand.Int()%28+1)
+	pos := gp.NewPosition(159, rand.Int()%21+4)
 	asteroid := NewAsteroid(pos, as.asteroidPauseSpeed, as.playerHealth)
 	AppendAsteroid(asteroid)
 	asteroid.Start()

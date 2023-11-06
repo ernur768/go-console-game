@@ -25,9 +25,6 @@ func gameStart() {
 	health := entities.NewPlayerHealth()
 	gp.AppendEntity(health)
 
-	player := entities.NewPlayer(gp.NewPosition(5, 5))
-	gp.AppendEntity(player)
-
 	spacecraft := entities.NewSpacecraft()
 	health.RegisterObserver(spacecraft)
 	gp.AppendEntity(spacecraft)
@@ -35,6 +32,9 @@ func gameStart() {
 	spawner := entities.NewAsteroidSpawner(health)
 	health.RegisterObserver(spawner)
 	gp.AppendEntity(spawner)
+
+	player := entities.NewPlayer(gp.NewPosition(30, 14))
+	gp.AppendEntity(player)
 
 	for _, object := range *Entities {
 		object.Start()
