@@ -52,7 +52,7 @@ func (b *Bullet) movement() {
 }
 
 func (b *Bullet) Update() {
-	if b.position.X == 100 {
+	if b.position.X >= 155 {
 		gp.DestroyEntity(b)
 		return
 	}
@@ -68,7 +68,7 @@ func (b *Bullet) Collision() {
 
 	Asteroids := GetCopyAsteroids()
 	for _, a := range Asteroids {
-		if (a.position.X == b.position.X+1 || a.position.X == b.position.X || a.position.X == b.position.X-1) && a.position.Y == b.position.Y {
+		if a.position.Y == b.position.Y && a.position.X+1 <= b.position.X {
 			gp.DestroyEntity(b)
 			DestroyAsteroid(*a)
 			return
