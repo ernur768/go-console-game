@@ -47,6 +47,10 @@ func (a *Asteroid) Start() {
 }
 
 func (a *Asteroid) Update() {
+	if a.playerHealth.healthPoints <= 1 {
+		DestroyAsteroid(*a)
+		return
+	}
 	if a.position.X == 1 {
 		DestroyAsteroid(*a)
 		return

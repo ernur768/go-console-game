@@ -55,7 +55,9 @@ func (as *AsteroidSpawner) Start() {
 }
 
 func (as *AsteroidSpawner) Update() {
-	//
+	if as.playerHealth.healthPoints <= 1 {
+		gp.DestroyEntity(as)
+	}
 }
 
 func (as *AsteroidSpawner) Finalize() {
