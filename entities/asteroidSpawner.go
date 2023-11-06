@@ -7,21 +7,21 @@ import (
 )
 
 type AsteroidSpawner struct {
-	id            int
-	position      gp.Position
-	pauseDuration int
-	asteroidSpeed int
-	destroyed     chan struct{}
-	playerHealth  *PlayerHealth
+	id                 int
+	position           gp.Position
+	pauseDuration      int
+	asteroidPauseSpeed int
+	destroyed          chan struct{}
+	playerHealth       *PlayerHealth
 }
 
 func NewAsteroidSpawner(health *PlayerHealth) *AsteroidSpawner {
 	return &AsteroidSpawner{
-		position:      gp.NewPosition(0, 0),
-		pauseDuration: 2,
-		asteroidSpeed: 50,
-		destroyed:     make(chan struct{}, 1),
-		playerHealth:  health,
+		position:           gp.NewPosition(0, 0),
+		pauseDuration:      5,
+		asteroidPauseSpeed: 50,
+		destroyed:          make(chan struct{}, 1),
+		playerHealth:       health,
 	}
 }
 
@@ -64,8 +64,15 @@ func (as *AsteroidSpawner) Finalize() {
 
 func (as *AsteroidSpawner) spawnAsteroid() {
 	pos := gp.NewPosition(159, rand.Int()%28+1)
-	asteroid := NewAsteroid(pos, as.asteroidSpeed, as.playerHealth)
+	asteroid := NewAsteroid(pos, as.asteroidPauseSpeed, as.playerHealth)
 	AppendAsteroid(asteroid)
 	asteroid.Start()
 	time.Sleep(time.Duration(as.pauseDuration) * time.Second)
+}
+
+func (as *AsteroidSpawner) PlayerGotHit() {
+	if as.pauseDuration <= 2 {
+		return
+	}
+	as.pauseDuration -= 1
 }
