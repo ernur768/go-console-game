@@ -26,7 +26,7 @@ func NewPlayerHealth() *PlayerHealth {
 	return &PlayerHealth{
 		sprite:       "♥ ",
 		position:     gp.NewPosition(75, 1),
-		healthPoints: 5,
+		healthPoints: 6,
 		observers:    make([]Observer, 0),
 	}
 }
