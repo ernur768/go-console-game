@@ -7,6 +7,7 @@ import (
 
 type GunBehavior interface {
 	Shoot()
+	RenderGunName()
 }
 
 func NewGun(owner *Player, bulletSpeed int, gunType GunType) GunBehavior {
@@ -34,6 +35,7 @@ type Pistol struct {
 	owner       *Player
 	bulletSpeed int
 	lastShot    time.Time
+	pos         gp.Position
 }
 
 func (p *Pistol) Shoot() {
@@ -44,6 +46,10 @@ func (p *Pistol) Shoot() {
 	bullet := NewBullet(p.owner.GetPosition(), p.bulletSpeed)
 	bullet.Start()
 	gp.AppendEntity(bullet)
+}
+
+func (p *Pistol) Render() {
+	return
 }
 
 type Rifle struct {
@@ -57,9 +63,19 @@ func (g *Rifle) Shoot() {
 		return
 	}
 	g.lastShot = time.Now()
-	bullet := NewBullet(g.owner.GetPosition(), g.bulletSpeed)
-	bullet.Start()
-	gp.AppendEntity(bullet)
+	pos1 := g.owner.position
+	pos1.Y = pos1.Y + 1
+	pos3 := g.owner.position
+	pos3.Y = pos3.Y - 1
+	upBullet := NewBullet(pos1, g.bulletSpeed)
+	centerBullet := NewBullet(g.owner.position, g.bulletSpeed)
+	downBullet := NewBullet(pos3, g.bulletSpeed)
+	upBullet.Start()
+	centerBullet.Start()
+	downBullet.Start()
+	gp.AppendEntity(upBullet)
+	gp.AppendEntity(centerBullet)
+	gp.AppendEntity(downBullet)
 }
 
 type MiniGun struct {

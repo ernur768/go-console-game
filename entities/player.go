@@ -3,6 +3,8 @@ package entities
 import (
 	gp "consoleTest/gamePhysics"
 	"consoleTest/term"
+	"fmt"
+	"time"
 )
 
 const (
@@ -55,14 +57,29 @@ func (p *Player) Finalize() {
 
 func (p *Player) changeToPistol() {
 	p.gun = NewGun(p, 10, PistolType)
+	showMessageAtPosition(5, 5, "Change to Pistol", 1*time.Second)
 }
 
 func (p *Player) changeToRifle() {
 	p.gun = NewGun(p, 10, RifleType)
+	showMessageAtPosition(5, 5, "Change to Rifle", 1*time.Second)
 }
 
 func (p *Player) changeToMiniGun() {
 	p.gun = NewGun(p, 10, MiniGunType)
+	showMessageAtPosition(5, 5, "Change to Mini Gun", 1*time.Second)
+}
+
+func (p *Player) printAndClearGunChangeMessage(gunType string) {
+	msg := fmt.Sprintf("Changed to %s", gunType)
+	fmt.Println(msg)
+
+}
+
+func showMessageAtPosition(x, y int, message string, delay time.Duration) {
+	term.CursorPosition(x, y)
+	fmt.Print(message)
+	time.Sleep(delay)
 }
 
 func (p *Player) movement() {

@@ -21,6 +21,10 @@ func Clear() {
 	_, _ = fmt.Fprint(screen, "\033[2J")
 }
 
+func ClearLine() {
+	fmt.Print("\033[2K")
+}
+
 func MoveCursor(pos gamePhysics.Position) {
 	_, _ = fmt.Fprintf(screen, "\033[%d;%dH", pos.Y, pos.X)
 }
